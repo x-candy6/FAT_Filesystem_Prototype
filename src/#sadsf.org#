@@ -1,0 +1,13 @@
+
+|-----------+-------+------|
+| TODO      | DOING | DONE |
+| fsc_mkdir |       |      |
+| fs_isFile |       |      |
+| fs_setcwd |       |      |
+| fs_isDir  |       |      |
+| setcwd    |       |      |
+| getcwd    |       |      |
+| parsepath |       |      |
+| delete    |       |      |
+| rmDir     |       |      |
+| closeDir  |       |      |

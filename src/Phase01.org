@@ -1,0 +1,209 @@
+
+* LBAread and LBAwrite
+These are in fsLow.o
+They take a buffer, the count of LBAblocks, starting from lbaPosition(0 based)
+
+For a FAT File System
+
+* Free Space Management
+In FAT systems, free-space is managed by the File-Allocation-Table.
+Which is a file
+that contains a list
+each element containing the address of the start of the next cluster.
+
+Oh yeah,
+FAT organizes using clusters
+
+In order to get the amount of clusters to initialize,
+cluster_count = sectors / sector_size;
+    A volume with count of clusters <=4085 is FAT12.
+    A volume with count of clusters >=4086 and <=65525 is FAT16.
+    A volume with count of clusters >=65526 is FAT32.
+
+cluster_count = 19531 / 512 = 38.14 -> FAT12
+
+raw output
+Opened SampleVolume, Volume Size: 9999872;  BlockSize: 512; Return 0
+
+
+* Plan for VCB init
+in initFS(1), call VCBinit1(2);
+-> In VCBinit(2), create a vcb object
+-> Set the Signature
+-> Set the volume_id
+-> Set the block_size
+-> Set the number_of_blocks
+
+    // 00:signatureP1
+    // 01:signatureP2
+    // 02:volume_id
+    // 03:block_size
+    // 04:number_of_blocks
+    // 05:sectors_per_cluster
+    // 06:number_of_sectors
+    // 07:dirent_start
+    // 08:dirent_size
+    // 09:data_start
+    // 10:data_size
+    // 11:filecount
+    // 12:volume_access_date
+    // 13:volume_mod_date
+    // 14:volume_create_date
+After return the object into a VCB object.
+
+Authenticate by LBAReading 1 block into LBA.
+LBAread(buffer, 1, 0);
+If the signatures do not match, LBAwrite the VCB to the LBA
+-> LBAwrite(buffer, 1, 0);
+-> proceed
+If the signatures do match, proceed
+-> proceed
+
+Perform other checks like
+volumeid, block_size, etc
+-> proceed
+
+Thanksgiving Notes
+Okay heres the pseudocode
+auth
+initVCB
+initFAT
+initRoot
+setRoot in FAT
+isRootThere?
+
+(ROOT_SIZE * CLUSTER_SIZE)/4
+
+So I just spent a lot of time tinkering with different cluster sizes...
+we have 10million bits
+1.25million bytes
+19531 blocks
+
+so if each cluster is 512(1 block), we'd have 19531 clusters
+Each cluster entry in the FAT is 4bytes
+19531 * 4 = 78124bytes for the FAT
+78128/1249984 = 6%
+
+okay so I implemented a lot of the features for m1
+VCB is pretty much done
+FSM is an array of FileEntries aka FAT
+After FAT is the root dir which is an array of dirEntries up to like 256
+now I need to finish the logic for . and ..
+
+
+here are the functions I need to implement...
+ls:
+    goto that directory
+    iterate every 32b until the an unallocated space comes along
+    print the file name of each
+    the increment-for variable int i is the file count
+
+cp
+    goto that directory
+    find that file
+
+    iterate through the FAT table and write the file into a separate buffer that is
+    equal to the size of the file
+
+    goto the destination directory
+    iterate every 32b until the unallocated space comes along
+    In that unallocated directory entry, copy in the source dirEntry
+    update the entry variables
+
+mv
+md
+rm
+touch
+cat
+cp2l
+cp2fs
+cd
+pwd
+history
+help
+
+Black Friday 5PM
+//int parse_path(){}
+
+
+int fs_isFile(char * filename){
+    • allocate a 32b dirEntry
+    • LBAread into that block
+    • check if file exists
+    • if dirEntry.attr != 4 -> return 1
+    • else -> return 0, it is a directory
+
+    return 0;
+}
+int fs_isDir(char * pathname){
+    • allocate a 32b dirEntry
+    • LBAread into that block
+    • check if file exists
+    • if dirEntry.attr == 4 -> return 1
+    • else -> return 0, it is a file
+}
+// Key directory functions
+int fs_mkdir(const char *pathname, mode_t mode){
+
+      navigate to path
+    • allocate a 32b dirEntry
+    • LBAread into that block
+    iterate through each dirEntry until first free is found
+    LBAwrite the direntry into the first free
+    return 0;
+
+
+}
+int fs_rmdir(const char *pathname){
+
+return 0;
+}
+
+int fs_setcwd(char *pathname){return 0;}   //linux chdir
+int fs_isFile(char * filename){return 0;}	//return 1 if file, 0 otherwise
+int fs_isDir(char * pathname){return 0;}		//return 1 if directory, 0 otherwise
+int fs_delete(char* filename){return 0;}	//removes a file
+
+
+// Directory iteration functions
+//fdDir * fs_opendir(const char *pathname){
+//};
+
+//struct fs_diriteminfo *fs_readdir(fdDir *dirp);
+int fs_closedir(fdDir *dirp){return 0;}
+
+// Misc directory functions
+char * fs_getcwd(char *pathname, size_t size){
+
+//man getcwd
+so we're give a pathname
+and we need to get the currernt working dir
+
+
+
+return 'i';
+}
+
+mkdir
+create an empty dirEntry
+set the filename to the pathname
+//later set the permissions to mode
+get the cwd
+in the cwd, search every 32b until a free space arrives
+write the direntry to that free space
+
+
+getcwd()
+the cwd by default, should be root, aka "/"
+
+
+
+
+
+
+
+
+
+
+
+

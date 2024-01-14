@@ -1,0 +1,33 @@
+fs_setcwd
+
+if there are no other entries in the root_area, besides the single root entry, "/"
+Set the current working directory to root 
+
+If there are other entries
+
+
+fs_getcwd
+
+if there are no other entries besides the root, call setcwd to set the cwd to root
+return root into the given buffer
+
+
+mkdir
+
+getcwd, find the first free space in that dirEntry
+set it to dirEntry
+write to lba
+
+--
+at this point root should be have directories
+
+--
+now, setcwd to subdirectories
+for every dirEntry, compare the pathname and filename
+if it matches, return that dir
+if it doesnt, the dir doesn't exist
+
+--
+getcwd should return the absolute path
+if there arent other enttries besides root, root is the wd
+but if there are

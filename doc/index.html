@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-10-27 Thu 22:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>File System Documentation</title>
+<meta name="author" content="Gabriella Arcilla, Maliah Chin, Andy Cho, Leo Powers" />
+<meta name="description" content="Documentation for our File System Project" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<link rel='stylesheet' href='https://portalsf.surge.sh/static/stylesheets/blackmeadow.css' media='all'>
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-org0f2450f" class="outline-2">
+<h2 id="org0f2450f"><span class="section-number-2">1.</span> Versioning</h2>
+<div class="outline-text-2" id="text-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Version</th>
+<th scope="col" class="org-left">Date</th>
+<th scope="col" class="org-left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">0.0.0</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-19 Wed&gt;</span></span></td>
+<td class="org-left">Document Initiation</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.0.1</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-20 Thu&gt;</span></span></td>
+<td class="org-left">VCB and dirEntry Prototyping</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.0.2</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-21 Fri&gt;</span></span></td>
+<td class="org-left">Changed from FAT -&gt; FFS</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.0.3</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-22 Sat&gt;</span></span></td>
+<td class="org-left">Fixed logic for FSM</td>
+</tr>
+
+<tr>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">corrected syntax errors for malloc functions</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.0.4</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-23 Sun&gt;</span></span></td>
+<td class="org-left">iNodes vs Extents vs Clusters Notes</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.0.5</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-25 Tue&gt;</span></span></td>
+<td class="org-left">Added Team Contribution Table</td>
+</tr>
+
+<tr>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Added Team Methodology</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">0.1.0</td>
+<td class="org-left"><span class="timestamp-wrapper"><span class="timestamp">&lt;2022-10-27 Thu&gt;</span></span></td>
+<td class="org-left">Finishing Touches for Milestone 1 and Cleanup</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgafa24b5" class="outline-2">
+<h2 id="orgafa24b5"><span class="section-number-2">2.</span> Kanban</h2>
+<div class="outline-text-2" id="text-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">TODO</th>
+<th scope="col" class="org-left">DOING</th>
+<th scope="col" class="org-left">DONE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">🐸 CODE 🐸 Volume Control Block(block 0)</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">🐸 CODE 🐸 Free Space Management</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">🐸 CODE 🐸 Root Directory</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Hex Dump</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 VCB structure</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Free Space Structure</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Directory System</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Contribution Table</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Team Methodology</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">😺DOC😺 Issues Faced</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org1b36744" class="outline-2">
+<h2 id="org1b36744"><span class="section-number-2">3.</span> Description</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org0e3d08f" class="outline-3">
+<h3 id="org0e3d08f"><span class="section-number-3">3.1.</span> Our Filesystem</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Team Boberts has taken on the task of creating a filesystem for a disk drive with a contiguous array of 512 byte chunks.
+The freespace within our filesystem is managed through a bit vector where each block is represented by a 1 or a 0 depending on whether it is free or not.
+In this milestone, we were tasked to write the code to initialize our filesystem. This included performing volume checks, initializing our volume, initializing our bit vector for space management, and initializing our directory system with the root directories.
+Within this timeframe many issues arose, as such, we have documented them- however with the complement of hours of brainstorming and an agile state of mind, we were able to mitigate most of our issues.
+At this stage of the process, we need still need to come to map out how we want to manage inodes throughout our filesystem. This is our next step- to create plans, models, and implementations for the inode structure. Afterwards we need to integrate it within our filesystem, changing the pre-existing values for the VCB and FSM.
+Then, after fixing lower priority issues, we can move on to coding the actual command line functionality.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde9d312" class="outline-2">
+<h2 id="orgde9d312"><span class="section-number-2">4.</span> Volume Control Block Structure</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The Volume Control Block Structure contains various volume details. We use
+inodes to directly link to the files within our file system. The variabels that contain
+the details of block refer to the actual space we use in the Logical Block Array.
+Finally, we introduce two parts of the magic numbers with variables long signatureP1
+and long signatureP2, which allows us to reecognize what format our file is in. 
+</p>
+</div>
+
+<div id="outline-container-org6efba82" class="outline-3">
+<h3 id="org6efba82"><span class="section-number-3">4.1.</span> VCB information table</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">ATTRIBUTE</th>
+<th scope="col" class="org-left">DATA<sub>TYPE</sub></th>
+<th scope="col" class="org-left">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">label</td>
+<td class="org-left">char *</td>
+<td class="org-left"><b>CHANGE</b> This needs to be set to a const value, FAT uses 11</td>
+</tr>
+
+<tr>
+<td class="org-left">type</td>
+<td class="org-left">char *</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">volumeName</td>
+<td class="org-left">char *</td>
+<td class="org-left"><b>CHANGE</b> This needs to be set to a const value, FAT uses 8, what does FFS use?</td>
+</tr>
+
+<tr>
+<td class="org-left">volumeSize</td>
+<td class="org-left">int</td>
+<td class="org-left">Given by the execution command input, default 19531</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">firstBlock</td>
+<td class="org-left">int</td>
+<td class="org-left">firstBlock for storing files(root)</td>
+</tr>
+
+<tr>
+<td class="org-left">firstFreeBlock</td>
+<td class="org-left">int</td>
+<td class="org-left">Incremented/Decremented based on CRUD operations</td>
+</tr>
+
+<tr>
+<td class="org-left">freeBlockCount</td>
+<td class="org-left">int</td>
+<td class="org-left"># of Freeblocks, used to calculate disk space</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">inodeCount</td>
+<td class="org-left">int</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">inodesPerGroup</td>
+<td class="org-left">int</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">freeInodeCount</td>
+<td class="org-left">int</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">sizeOfRoot</td>
+<td class="org-left">int</td>
+<td class="org-left">initial size of Root</td>
+</tr>
+
+<tr>
+<td class="org-left">rootIndex</td>
+<td class="org-left">int</td>
+<td class="org-left">Same as firstBlock</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">signatureP1</td>
+<td class="org-left">long</td>
+<td class="org-left"><b>CHANGE</b> combine signature 1 and 2 and save time doing the signature check</td>
+</tr>
+
+<tr>
+<td class="org-left">signatureP2</td>
+<td class="org-left">long</td>
+<td class="org-left"><b>CHANGE</b> combine signature 1 and 2 and save time doing the signature check</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org67ef213" class="outline-3">
+<h3 id="org67ef213"><span class="section-number-3">4.2.</span> Helper Functions</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org00a822a" class="outline-4">
+<h4 id="org00a822a"><span class="section-number-4">4.2.1.</span> VCBinit1()</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<p>
+This is called at the beginning of fsInit and returns the first block from LBA so it can be used for signature checking.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">VolumeControlBlock *VCBinit1() {
+
+  VolumeControlBlock *VCB =
+      (VolumeControlBlock *)malloc(sizeof(VolumeControlBlock));
+  printf("\nInitializing VCB attributes...\n");
+
+  return VCB;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge6810e3" class="outline-4">
+<h4 id="orge6810e3"><span class="section-number-4">4.2.2.</span> VCBinit2()</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<p>
+This is called whenever the signature check fails(2 cases), and it is used to initialize the very beginning data elements needed within our superblock.
+</p>
+<div class="org-src-container">
+<pre class="src src-c">VolumeControlBlock *VCBinit2(VolumeControlBlock *vcb, uint64_t blockSize,
+			     uint64_t blockCount) {
+  printf("\nInitializing VCB attributes...\n");
+  vcb-&gt;signatureP1 = PART_SIGNATURE;
+  vcb-&gt;signatureP2 = PART_SIGNATURE2;
+
+  vcb-&gt;blockSize = blockSize;
+  vcb-&gt;blockCount = blockCount;
+
+  printf("\nblockSize: %lu", blockSize);
+  printf("\nblockCount: %lu", blockCount);
+
+  return vcb;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0599734" class="outline-4">
+<h4 id="org0599734"><span class="section-number-4">4.2.3.</span> VCB Struct</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<div class="org-src-container">
+<pre class="src src-c">/*〇Volume Control Block〇*/
+typedef struct VolumeControlBlock {
+
+  char *label;
+  char *type;
+
+  char *volumeName;
+  int volumeSize;
+
+  int firstFreeBlock;
+
+  int inodeCount;
+  int inodesPerGroup;
+
+  int blockCount;
+  int blockSize;
+  int blocksPerGroup;
+
+  int sizeOfRoot;
+  int rootIndex;
+
+  int freeBlockCount;
+  int freeInodeCount;
+  int firstBlock;
+
+  long signatureP1;
+  long signatureP2;
+
+} VolumeControlBlock;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7461f12" class="outline-2">
+<h2 id="org7461f12"><span class="section-number-2">5.</span> initFileSystem</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgb152d53" class="outline-3">
+<h3 id="orgb152d53"><span class="section-number-3">5.1.</span> Methodology</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+In order to initialize our filesystem, we first bring read the first block from disk using LBAread. This initial step of reading from LBA is contained in a function called VCBinit1(), and simply returns a pointer to a VCB object to be used for validity checking.
+We can compare the signature between the block we brought in from LBAread and that declared globally by the program.
+If there is a match, there is no need to initialize and format a new volume, however, by contrast, we need to take the necessary steps to mount a new volume on to disk.
+The logic is contained as such:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Check 1</th>
+<th scope="col" class="org-left">Check 2</th>
+<th scope="col" class="org-left">TODO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">PASS</td>
+<td class="org-left">PASS</td>
+<td class="org-left">NO NEED TO INIT</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">PASS</td>
+<td class="org-left">FAIL</td>
+<td class="org-left">INIT FILE SYSTEM</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Init VCB values by calling VCBinit2(VCB, blockSize, numberOfBlocks)</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Set the firstBlock to that given by the FSM obect</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Set the rootIndex to where root starts</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; LBAwrite our VCB to block 0</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; LBAwrite our FSM to block 1, up to blocksReq amount</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; set sigCheck to 1</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">FAIL</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">I&gt;NIT FILE SYSTEM</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Init VCB values by calling VCBinit2(VCB, blockSize, numberOfBlocks)</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Set the firstBlock to that given by the FSM obect</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; Set the rootIndex to where root starts</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; LBAwrite our VCB to block 0</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; LBAwrite our FSM to block 1, up to blocksReq amount</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">-&gt; set sigCheck to 1</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+After these conditionals, our filesystem will have been initalized(and if needed, formatted) ready to be used.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org540b4d4" class="outline-2">
+<h2 id="org540b4d4"><span class="section-number-2">6.</span> Free Space Management</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Our implementation of Free Space Managment uses a bitmap array to organize the data. 
+The Free Space Map contains several variables that will assist us by providing ways to 
+track where we are within our free space map. Other data of our blocks included in our
+freeSpaceMap structure is the total blocks and the size of the blocks. An additional variable
+we use to compute the total blocks needed in the Logical Block Array to contain our free space map, 
+we call int blockReq. We access the freeSpace map using pointers and initialize our free space map 
+structure with parameters (int totalBlock, int blockSize), as well as allocating the proper memory 
+to the map.  
+</p>
+</div>
+
+
+<div id="outline-container-org7048a86" class="outline-3">
+<h3 id="org7048a86"><span class="section-number-3">6.1.</span> initFSP(int totalBlocks, int blockSize)</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+This is a function that is called when a volume needs to be initialized.
+The first 6 bits are marked as 0 because they are in use by the vcb and the bitmap vector.
+The rest are marked as free.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">freeSpaceMap *initFSP(int totalBlocks, int blockSize) {
+
+  freeSpaceMap *fsm = (freeSpaceMap *)malloc(sizeof(freeSpaceMap));
+
+  fsm-&gt;blockReq = (((totalBlocks / 8) + 1) / blockSize) + 1;
+  fsm-&gt;firstBlock =
+      fsm-&gt;blockReq +
+      1; // TODO, calculate and find the architecture for the 1st block
+  fsm-&gt;lastBlock = fsm-&gt;firstBlock + fsm-&gt;blockReq;
+
+  // fsm-&gt;map = malloc((totalBlocks / blockSize) + 1);
+  printf("\ntotalBlocks/blockSize  + 1: %d", (totalBlocks / blockSize) + 1);
+
+  // Block 0 is occupied(512, Block 1 + blockReq is occupied(blockReq * 512)
+  //  [0][1][2][3][4][5][6][7][...][totalBlocks-1]
+  //   v  f           f
+  for (int i = 0; i &lt; fsm-&gt;lastBlock; i++) {
+    // fsm-&gt;map[i] = malloc(sizeof(int));
+    fsm-&gt;map[i] = 0;
+  }
+
+  for (int i = fsm-&gt;lastBlock; i &lt; totalBlocks; i++) {
+    fsm-&gt;map[i] = 1;
+  }
+
+  // Print freeSpaceMap
+  // for(int i = 0; i &lt; totalBlocks; i++){
+  //     printf("%d", fsm-&gt;map[i]);
+  // }
+
+  return fsm;
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orga1df716" class="outline-2">
+<h2 id="orga1df716"><span class="section-number-2">7.</span> Directory System</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+The Directory System follows the steps laid out in the milestone 1 steps. First we created a pointer to a array of directory entries, then we initialize each entry to the free
+state. We do this inorder to track the avaliable directory entries in the directory structure. 
+Next we called the getFreeSpace function inorder to find a continguous block chunk of the size of our directory structure. 
+Then we wrote the blocks in to memory with LBAWrite and returned the blocks that we used inorder to save them in the volume control block.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c">typedef struct dirEntry {
+  char name[255];
+  char owner[25];
+  unsigned int dirATTR;
+  // Attribute table
+  //  1: (Read-only)
+  //  2:  (Hidden)
+  //  4:  (System)
+  //  8:  (Volume label)
+  //  10:  (Directory)
+  //  20:  (Archive)
+  //  0F:  (LFN entry)
+  unsigned int fileID;
+  // use bit values to track permissions, use enum to track which permissions
+  unsigned int permissions;
+  unsigned int groupID;
+  unsigned int inodeID;
+  unsigned int pathLength;
+  unsigned int startingBlock;
+  unsigned int size;
+  unsigned int freeFlag;
+  time_t lastAccess;
+  time_t lastMod;
+  time_t CRTTime;
+} dirEntry;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgec2fed4" class="outline-2">
+<h2 id="orgec2fed4"><span class="section-number-2">8.</span> Team Methodology and Contribution Table</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+During this initial milestone we met online daily for a quick 10-15 minute SCRUM meet. 
+While in the beginning we were overloaded with coursework from other entities, we were able to fastidiously optimize our efforts into this project  and meet up in real life 3-4 times a week to collaboratively prototype, plan, and implement code.
+The contribution metrics on github classrooms do not reflect the efforts of our team members because a good chunk of our code was written using an IDE sharing application- therefore only one member had to push after a days worth of work.
+Each of us played a significant role in deciding how we want to implement our VCB, FSM, and directory system. We were then able to divvy up tasks efficiently throughout our team.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">BOBERTS Team Member</th>
+<th scope="col" class="org-left">Contributions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Gabriella Arcilla</td>
+<td class="org-left">Documentation Contributor</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Prototyping</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">FSM Implementation</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">GitHub Master</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Maliah Chin</td>
+<td class="org-left">Documentation Contributor</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Prototyping</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">SCRUM Master</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">FSM Implementation</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Andy Cho</td>
+<td class="org-left">Documentation Contributor</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Prototyping</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Volume Control Block</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">FSM Implementation</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Leo Powers</td>
+<td class="org-left">Documentation Contributor</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Prototyping</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">'.' and '..' directories</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Directory Structure Architecture</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">FileControlBlock(DirEntry) Prototyping and Implementation</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgae38887" class="outline-2">
+<h2 id="orgae38887"><span class="section-number-2">9.</span> Issues Faced</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-orgdd06d60" class="outline-3">
+<h3 id="orgdd06d60"><span class="section-number-3">9.1.</span> Carelessly Delving into an Implementation</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+Seeing how there are numerous ways to allocate memory, manage freespace, and optimize disk usage-
+we initially saw the FAT32 file system, and how it uses a combination of the Master File Table and clustering, to intuitevely map out files.
+We had our minds set out on implementing a filesystem based on the FAT specifications however we also saw that while clustering is a simple means of file organization, modern systems are skewing towards the usage of inodes and extents.
+We also realized that while we may have a handy trove of FAT32 documentation resources, we want to venture out and try implementing a system with inodes like the Unix File System and then later we can start thinking about how we can create a combined filesystem to better replicate the FFS.
+</p>
+
+<p>
+Subsequently, since we wanted to use a bitmap and inodes, we had to rapidly reprototype the way we structure our VCB, FSM, and directory architecture. 
+Bits and pieces need maintenence and they are cataloged within our documentation website under the Kanban section.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org97e308d" class="outline-3">
+<h3 id="org97e308d"><span class="section-number-3">9.2.</span> Memory Faults</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+While implementing our initial project we were met with cascades of memory faults. We realized that while editing in the terminal may be faster(especially in a vm) and conveinient, it requires a lot of configuration to create a development environment capable of debugging on the fly.
+So we changed the IDE in our tech stack to CLion because as students we are given a membership to the ultimate edition, making it easier to track memory faults. This, in combination with valgrind helped the debugging process a lot.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5b28118" class="outline-3">
+<h3 id="org5b28118"><span class="section-number-3">9.3.</span> Initial Team Performance</h3>
+<div class="outline-text-3" id="text-9-3">
+<p>
+Although we started thinking about the project early on, many of us were overwhelmed by other work, personal matters, and homework.
+In order to mitigate this, we changed some of our meetings to online and instead of having long multiple-hour meetings, we decided it would be better to have a quick 10-15minute SCRUM meet to discuss our daily Kanban and other project matters.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeb09ba2" class="outline-2">
+<h2 id="orgeb09ba2"><span class="section-number-2">10.</span> Current Issues</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-org8a93fa3" class="outline-3">
+<h3 id="org8a93fa3"><span class="section-number-3">10.1.</span> Mise en Place</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+We need to stray away from diving head-first into implementation and instead write all the pseudocode and logic for what we plan to do.
+Because we don't do this, each of us has a different idea of what the implementation may/should look like.
+Doing this, allows us to have a plan that is pragmatic and ubiquitous to all of us.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org37cb90a" class="outline-3">
+<h3 id="org37cb90a"><span class="section-number-3">10.2.</span> Diagramming</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+Diagramming will help us. Make some diagrams.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org6754102" class="outline-2">
+<h2 id="org6754102"><span class="section-number-2">11.</span> Hex Dump</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Full Dump available at: <a href="http://boberts.surge.sh/dump2">http://boberts.surge.sh/dump2</a>
+</p>
+<pre class="example">
+
+Dumping file ../SampleVolume, starting at block 0 for 19532 blocks:
+
+000000: 43 53 43 2D 34 31 35 20  2D 20 4F 70 65 72 61 74 | CSC-415 - Operat
+000010: 69 6E 67 20 53 79 73 74  65 6D 73 20 46 69 6C 65 | ing Systems File
+000020: 20 53 79 73 74 65 6D 20  50 61 72 74 69 74 69 6F |  System Partitio
+000030: 6E 20 48 65 61 64 65 72  0A 0A 00 00 00 00 00 00 | n Header........
+000040: 42 20 74 72 65 62 6F 52  00 96 98 00 00 00 00 00 | B treboR.��.....
+000050: 00 02 00 00 00 00 00 00  4B 4C 00 00 00 00 00 00 | ........KL......
+000060: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000070: 52 6F 62 65 72 74 20 42  55 6E 74 69 74 6C 65 64 | Robert BUntitled
+000080: 0A 0A 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000090: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000A0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000B0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000C0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000D0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000E0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0000F0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+
+000100: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000110: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000120: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000130: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000140: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000150: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000160: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000170: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000180: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000190: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001A0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001B0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001C0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001D0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001E0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+0001F0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+
+000200: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000210: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000220: 00 00 00 00 00 00 00 00  4B 4C 00 00 00 02 00 00 | ........KL......
+000230: 00 00 00 00 00 00 00 00  06 00 00 00 00 00 00 00 | ................
+000240: 00 00 00 00 06 00 00 00  42 20 74 72 65 62 6F 52 | ........B treboR
+000250: 52 6F 62 65 72 74 20 42  51 31 01 00 00 00 00 00 | Robert BQ1......
+000260: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000270: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000280: 00 00 00 00 00 00 00 00  00 00 00 00 01 00 00 00 | ................
+000290: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0002F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000300: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000310: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000320: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000330: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000340: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000350: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000360: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000370: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000380: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000390: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0003F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000400: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000410: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000420: 00 00 00 00 00 00 00 00  00 00 00 00 01 00 00 00 | ................
+000430: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000440: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000450: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000460: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000470: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000480: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000490: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0004F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000500: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000510: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000520: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000530: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000540: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000550: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000560: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000570: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000580: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000590: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0005F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000600: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000610: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000620: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000630: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000640: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000650: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000660: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000670: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000680: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000690: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0006F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000700: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000710: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000720: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000730: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000740: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000750: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000760: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000770: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000780: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000790: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0007F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000800: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000810: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000820: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000830: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000840: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000850: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000860: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000870: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000880: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000890: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0008F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000900: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000910: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000920: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000930: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000940: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000950: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000960: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000970: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000980: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000990: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009A0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009B0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009C0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009D0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009E0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+0009F0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000A00: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A10: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A20: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A30: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A40: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A50: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A60: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A70: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A80: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000A90: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AA0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AB0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AC0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AD0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AE0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000AF0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000B00: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B10: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B20: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B30: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B40: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B50: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B60: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B70: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B80: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000B90: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BA0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BB0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BC0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BD0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BE0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000BF0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000C00: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C10: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C20: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C30: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C40: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C50: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C60: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C70: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C80: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000C90: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CA0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CB0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CC0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CD0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CE0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000CF0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000D00: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D10: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D20: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D30: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D40: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D50: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D60: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D70: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D80: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000D90: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DA0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DB0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DC0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DD0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DE0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+000DF0: 01 00 00 00 01 00 00 00  01 00 00 00 01 00 00 00 | ................
+
+000E00: 2E 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E10: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E20: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E30: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E40: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E50: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E60: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E70: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E80: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000E90: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000EA0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000EB0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000EC0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000ED0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000EE0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000EF0: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+
+000F00: 00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+000F10: 00 00 00 00 00 00 00 00  0A 00 00 00 00 00 00 00 | ................
+000F20: 00 00 00 00 00 00 00 00  00 00 00 00 06 00 00 00 | ................
+000F30: A0 41 00 00 01 00 00 00  F5 38 5B 63 00 00 00 00 | �A......�8[c....
+000F40: F5 38 5B 63 00 00 00 00  F5 38 5B 63 00 00 00 00 | �8[c....�8[c....
+000F50: 2E 2E 00 00 00 00 00 00  00 00 00 00 00 00 00 00 | ................
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gabriella Arcilla, Maliah Chin, Andy Cho, Leo Powers</p>
+<p class="date">Created: 2022-10-27 Thu 22:42</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

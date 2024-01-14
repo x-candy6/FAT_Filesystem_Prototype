@@ -1,0 +1,5 @@
+gcc -c -o fsshell.o fsshell.c -g -I. 
+gcc -c -o fsInit.o fsInit.c -g -I. 
+gcc -o fsshell fsshell.o fsInit.o fsLow.o -g -I. -lm -l readline -l pthread
+valgrind ./fsshell SampleVolume 10000000 512
+Makefile:70: recipe for target 'vrun' failed

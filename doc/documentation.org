@@ -1,0 +1,331 @@
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+TITLE:File System Documentation
+#+AUTHOR: Gabriella Arcilla, Maliah Chin, Andy Cho, Leo Powers
+#+DESCRIPTION:Documentation for our File System Project
+#+HTML_HEAD_EXTRA: <link rel='stylesheet' href='https://portalsf.surge.sh/static/stylesheets/blackmeadow.css' media='all'>
+#+OPTIONS: toc:nil title:nil
+#+LATEX_HEADER: \usepackage{fancyhdr}                                                         
+#+LATEX_HEADER: \pagestyle{fancyplain}                                                        
+#+LATEX_HEADER: \chead{Team Boberts}
+#+LATEX_HEADER: \lhead{}                                                                      
+#+LATEX_HEADER: \rhead{\thepage}                                                                      
+#+LATEX_HEADER: \cfoot{• Arcilla • Chin • Cho • Powers •}                   
+#+LATEX_HEADER: \lfoot{}                                                                      
+#+LATEX_HEADER: \rfoot{}  
+
+
+#+BEGIN_EXPORT latex
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	\textsc{\LARGE San Francisco State University}\\[1.5cm]
+	
+	\textsc{\Large CSC415-03}\\[0.5cm]
+	
+	\textsc{\large File System Documentation}\\[0.5cm]
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries Milestone 1}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft}
+			\textit{Team Boberts}\\
+			\textsc{Gabriella Arcilla}\\
+			\textsc{Maliah Chin}\\
+		\end{flushleft}
+	\end{minipage}
+	~
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushright}
+			\large
+			\textsc{Andy Cho}\\
+			\textsc{Leo Powers}\\
+		\end{flushright}
+	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	
+	\includegraphics[width=0.4\textwidth]{filesystem.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	\textit{\small "A Filesystem Monster made up of Contiguously Allocated Blocks"\\}
+	\textsc{\tiny An image created by DALL-E 2, an AI that creates a drawing based off of text input.\\}
+
+
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	\vfill
+	 
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	\vfill
+	\textnormal{Github Repo:https://github.com/CSC415-2022-Fall/csc415-filesystem-boberts\\}
+	\textnormal{Supplemental Documentation: https://boberts.surge.sh/\\}
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+
+\tableofcontents
+#+END_EXPORT
+
+
+#+LATEX:\newpage
+* Versioning
+
+  |---------+------------------+-----------------------------------------------|
+  | Version | Date             | Notes                                         |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.0 | <2022-10-19 Wed> | Document Initiation                           |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.1 | <2022-10-20 Thu> | VCB and dirEntry Prototyping                  |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.2 | <2022-10-21 Fri> | Changed from FAT -> FFS                       |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.3 | <2022-10-22 Sat> | Fixed logic for FSM                           |
+  |         |                  | corrected syntax errors for malloc functions  |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.4 | <2022-10-23 Sun> | iNodes vs Extents vs Clusters Notes           |
+  |---------+------------------+-----------------------------------------------|
+  |   0.0.5 | <2022-10-25 Tue> | Added Team Contribution Table                 |
+  |         |                  | Added Team Methodology                        |
+  |---------+------------------+-----------------------------------------------|
+  |   0.1.0 | <2022-10-27 Thu> | Finishing Touches for Milestone 1 and Cleanup |
+  |---------+------------------+-----------------------------------------------|
+  
+* Kanban
+  
+  |------+-------+----------------------------------------------------------------------|
+  | TODO | DOING | DONE                                                                 |
+  |------+-------+----------------------------------------------------------------------|
+  |      |       | 🐸 CODE 🐸 Volume Control Block(block 0) |
+  |      |       | 🐸 CODE 🐸 Free Space Management         |
+  |      |       | 🐸 CODE 🐸 Root Directory                |
+  |      |       | 😺DOC😺 Hex Dump                          |
+  |      |       | 😺DOC😺 VCB structure                     |
+  |      |       | 😺DOC😺 Free Space Structure              |
+  |      |       | 😺DOC😺 Directory System                  |
+  |      |       | 😺DOC😺 Contribution Table                |
+  |      |       | 😺DOC😺 Team Methodology                  |
+  |      |       | 😺DOC😺 Issues Faced                      |
+  |------+-------+----------------------------------------------------------------------|
+  
+
+#+LATEX:\newpage
+* Description
+** Our Filesystem
+Initially when tasked with creating this file system we brainstormed a
+multitude of design schemes that would convey 
+
+
+
+
+
+* Description
+** Our Filesystem
+Initially when tasked with creating a filesystem, we 
+
+#+LATEX:\newpage
+* Volume Control Block Structure  
+
+The Volume Control Block Structure contains various volume details. We use
+inodes to directly link to the files within our file system. The variabels that contain
+the details of block refer to the actual space we use in the Logical Block Array.
+Finally, we introduce two parts of the magic numbers with variables long signatureP1
+and long signatureP2, which allows us to reecognize what format our file is in. 
+
+** VCB information table
+|----------------+-----------+--------------------------------------------------------------------------------|
+| ATTRIBUTE      | DATA_TYPE | DESCRIPTION                                                                    |
+|----------------+-----------+--------------------------------------------------------------------------------|
+| label          | char *    | *CHANGE* This needs to be set to a const value, FAT uses 11                    |
+| type           | char *    |                                                                                |
+|                |           |                                                                                |
+| volumeName     | char *    | *CHANGE* This needs to be set to a const value, FAT uses 8, what does FFS use? |
+| volumeSize     | int       | Given by the execution command input, default 19531                            |
+|                |           |                                                                                |
+| firstBlock     | int       | firstBlock for storing files(root)                                             |
+| firstFreeBlock | int       | Incremented/Decremented based on CRUD operations                               |
+| freeBlockCount | int       | # of Freeblocks, used to calculate disk space                                  |
+|                |           |                                                                                |
+| inodeCount     | int       |                                                                                |
+| inodesPerGroup | int       |                                                                                |
+| freeInodeCount | int       |                                                                                |
+|                |           |                                                                                |
+| sizeOfRoot     | int       | initial size of Root                                                           |
+| rootIndex      | int       | Same as firstBlock                                                             |
+|                |           |                                                                                |
+| signatureP1    | long      | *CHANGE* combine signature 1 and 2 and save time doing the signature check     |
+| signatureP2    | long      | *CHANGE* combine signature 1 and 2 and save time doing the signature check     |
+|----------------+-----------+--------------------------------------------------------------------------------|
+
+** Helper Functions
+
+*** VCBinit1()
+This is called at the beginning of fsInit and returns the first block from LBA so it can be used for signature checking.
+
+#+BEGIN_SRC c
+#+END_SRC
+
+#+LATEX:\newpage
+*** VCBinit2()
+#+BEGIN_SRC c
+#+END_SRC
+
+#+LATEX:\newpage
+*** VCB Struct
+#+BEGIN_SRC c
+/*〇Volume Control Block〇*/
+
+#+END_SRC
+
+
+
+
+#+LATEX:\newpage
+* initFileSystem
+** Methodology
+
+#+LATEX:\newpage
+* Free Space Management
+
+
+** initFSP(int totalBlocks, int blockSize)
+
+#+BEGIN_SRC c
+#+END_SRC
+
+#+LATEX:\newpage
+* Directory System
+
+#+BEGIN_SRC c
+#+END_SRC
+
+#+LATEX:/newpage
+* 
+
+
+
+#+LATEX:\newpage 
+* bio.c functions
+
+#+END_SRC
+
+#+LATEX:\newpage
+* Team Methodology and Contribution Table
+
+  |---------------------+-----------------------------------------------------------|
+  | BOBERTS Team Member | Contributions                                             |
+  |---------------------+-----------------------------------------------------------|
+  |---------------------+-----------------------------------------------------------|
+  | Gabriella Arcilla   | Documentation Contributor                                 |
+  |                     | Prototyping                                               |
+  |                     | FSM Implementation                                        |
+  |                     | GitHub Master                                             |
+  |                     |                                                           |
+  |---------------------+-----------------------------------------------------------|
+  | Maliah Chin         | Documentation Contributor                                 |
+  |                     | Prototyping                                               |
+  |                     | SCRUM Master                                              |
+  |                     | FSM Implementation                                        |
+  |                     |                                                           |
+  |---------------------+-----------------------------------------------------------|
+  | Andy Cho            | Documentation Contributor                                 |
+  |                     | Prototyping                                               |
+  |                     | Volume Control Block                                      |
+  |                     | FSM Implementation                                        |
+  |                     |                                                           |
+  |                     |                                                           |
+  |---------------------+-----------------------------------------------------------|
+  | Leo Powers          | Documentation Contributor                                 |
+  |                     | Prototyping                                               |
+  |                     | '.' and '..' directories                                  |
+  |                     | Directory Structure Architecture                          |
+  |                     | FileControlBlock(DirEntry) Prototyping and Implementation |
+  |                     |                                                           |
+  |                     |                                                           |
+  |---------------------+-----------------------------------------------------------|
+
+
+
+
+#+LATEX:\newpage
+* Issues Faced
+   
+* Current Issues
+
+
+#+LATEX:\newpage
+* Hex Dump
+  
+Full Dump available at: http://boberts.surge.sh/dump2
+#+BEGIN_SRC 
+
+
+#+END_SRC
+
+
+
+ 🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
+ 🐶11/29/22 Itinerary         🐶
+ 🐶* ~48hrs remaining         🐶
+ 🐶* do pwd first             🐶
+ 🐶* and then do mkdir        🐶
+ 🐶* and then ls              🐶
+ 🐶* and then cd              🐶
+ 🐶* and then do touch        🐶
+ 🐶* cp, mv, cp1l/fs, history 🐶
+ 🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶🐶
+/***
+ ***/
+
+//    |---------+-------+------|
+//    | TODO    | DOING | DONE |
+//    |---------+-------+------|
+//    | ls      |       |      |
+//    | cp      |       |      |
+//    | mv      |       |      |
+//    |         | md    |      |
+//    | rm      |       |      |
+//    | touch   |       |      |
+//    | cat     |       |      |
+//    | cp1l    |       |      |
+//    | cp1fs   |       |      |
+//    | cd      |       |      |
+//    | pwd     |       |      |
+//    | history |       |      |
+//    |---------+-------+------|
